@@ -28,12 +28,14 @@ namespace BigBookLibrary
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
+
 
 
             var app = builder.Build();
 
-            using  (var scope = app.Services.CreateScope()) 
-            { 
+            using (var scope = app.Services.CreateScope())
+            {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 RoleSeeder.SeedRolesAsync(roleManager).Wait();
@@ -58,6 +60,11 @@ namespace BigBookLibrary
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 
             app.MapControllerRoute(
                 name: "default",

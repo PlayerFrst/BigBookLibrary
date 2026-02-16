@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1 class="mt-3">Admin Dashboard</h1>
+<p class="text-muted">Welcome to the administration panel of BigBookLibrary.</p>
+
+<div class="row mt-4">
+
+    <div class="col-md-4">
+        <a href="/Admin/Books" class="text-decoration-none">
+            <div class="card shadow-sm p-3">
+                <h4>📚 Books</h4>
+                <p>Manage all books in the library.</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/Admin/Authors" class="text-decoration-none">
+            <div class="card shadow-sm p-3">
+                <h4>✍️ Authors</h4>
+                <p>Manage authors and their information.</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/Admin/Genres" class="text-decoration-none">
+            <div class="card shadow-sm p-3">
+                <h4>🏷 Genres</h4>
+                <p>Manage book genres.</p>
+            </div>
+        </a>
+    </div>
+
+</div>

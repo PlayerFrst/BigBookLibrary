@@ -1,5 +1,7 @@
 using BigBookLibrary.Data;
 using BigBookLibrary.Data.Seeding;
+using BigBookLibrary.Services;
+using BigBookLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,10 +22,13 @@ namespace BigBookLibrary
             builder.Services.AddDefaultIdentity<IdentityUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
-                })
+            })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IBookService, BookService>();
+
 
             var app = builder.Build();
 

@@ -20,6 +20,8 @@ namespace BigBookLibrary.Models
         [StringLength(BookIsbnLength)]
         public string ISBN { get; set; } = null!;
 
+        public string? CoverImagePath { get; set; }
+
         [Required]
         public int Year { get; set; }
 

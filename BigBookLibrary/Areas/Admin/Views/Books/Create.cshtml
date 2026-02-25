@@ -1,4 +1,5 @@
-﻿@model BigBookLibrary.Models.Book
+﻿@model BigBookLibrary.Areas.Admin.ViewModels.Books.BookCreateViewModel
+
 
 @{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -54,20 +55,21 @@
     <div class="mb-3">
         <label class="form-label">Author</label>
         <div class="d-flex gap-2">
-            <select asp-for="AuthorId" class="form-select"
-                    asp-items="@(new SelectList(ViewBag.Authors, "Id", "Name"))">
+            <select asp-for="AuthorId" class="form-select" asp-items="Model.Authors">
+                <option value="">Choose author</option>
             </select>
             <a href="/Admin/Authors/Create" class="btn btn-outline-success">+ Add</a>
         </div>
         <span asp-validation-for="AuthorId" class="text-danger"></span>
     </div>
 
+
     <!-- Genre -->
     <div class="mb-3">
         <label class="form-label">Genre</label>
         <div class="d-flex gap-2">
-            <select asp-for="GenreId" class="form-select"
-                    asp-items="@(new SelectList(ViewBag.Genres, "Id", "Name"))">
+            <select asp-for="GenreId" class="form-select" asp-items="Model.Genres">
+                <option value="">Choose genre</option>
             </select>
             <a href="/Admin/Genres/Create" class="btn btn-outline-success">+ Add</a>
         </div>

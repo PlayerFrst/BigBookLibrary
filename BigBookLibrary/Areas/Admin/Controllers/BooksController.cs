@@ -1,7 +1,9 @@
-﻿using BigBookLibrary.Services.Interfaces;
+﻿using BigBookLibrary.Areas.Admin.ViewModels.Books;
+using BigBookLibrary.Models;
+using BigBookLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SQLitePCL;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BigBookLibrary.Areas.Admin.Controllers
 {
@@ -45,12 +47,78 @@ namespace BigBookLibrary.Areas.Admin.Controllers
             return View(book);
         }
 
+
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Authors = await _authorService.GetAllAsync();
-            ViewBag.Genres = await _genreService.GetAllAsync();
-            return View();
+            var vm = new BookCreateViewModel
+            {
+                Authors = (await _authorService.GetAllAsync())
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Name
+                    }),
+
+                Genres = (await _genreService.GetAllAsync())
+                    .Select(g => new SelectListItem
+                    {
+                        Value = g.Id.ToString(),
+                        Text = g.Name
+                    })
+            };
+
+            return View(vm);
         }
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(BookCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Authors = (await _authorService.GetAllAsync())
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Name
+                    })
+                    .ToList();
+
+                model.Genres = (await _genreService.GetAllAsync())
+                    .Select(g => new SelectListItem
+                    {
+                        Value = g.Id.ToString(),
+                        Text = g.Name
+                    })
+                    .ToList();
+
+                return View(model);
+            }
+
+            var book = new Book
+            {
+                Title = model.Title,
+                Description = model.Description,
+                ISBN = model.ISBN,
+                CoverImagePath = model.CoverImagePath,
+                Year = model.Year,
+                CopiesAvailable = model.CopiesAvailable,
+                AuthorId = model.AuthorId,
+                GenreId = model.GenreId
+            };
+
+            await _bookService.CreateBookAsync(book);
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
 
     }
 }

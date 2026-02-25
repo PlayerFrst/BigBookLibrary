@@ -16,5 +16,14 @@ namespace BigBookLibrary.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Borrowing> Borrowings { get; set; }
         public DbSet<Review> Reviews { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new GenreConfiguration());
+            modelBuilder.ApplyConfiguration(new AuthorConfiguration()); 
+        }
+
     }
 }

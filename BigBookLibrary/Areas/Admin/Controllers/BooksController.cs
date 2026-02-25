@@ -51,7 +51,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var vm = new BookCreateViewModel
+            var vm = new BookFormViewModel
             {
                 Authors = (await _authorService.GetAllAsync())
                     .Select(a => new SelectListItem
@@ -68,14 +68,11 @@ namespace BigBookLibrary.Areas.Admin.Controllers
                     })
             };
 
-            return View(vm);
+            return View("CreateAndEdit",vm);
         }
 
-
-
-
         [HttpPost]
-        public async Task<IActionResult> Create(BookCreateViewModel model)
+        public async Task<IActionResult> Create(BookFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -95,7 +92,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
                     })
                     .ToList();
 
-                return View(model);
+                return View("CreateAndEdit", model);
             }
 
             var book = new Book
@@ -116,9 +113,84 @@ namespace BigBookLibrary.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var book = await _bookService.GetBookByIdAsync(id);
 
+            if (book == null)
+                return NotFound();
 
+            var vm = new BookFormViewModel
+            {
+                Title = book.Title,
+                Description = book.Description,
+                ISBN = book.ISBN,
+                CoverImagePath = book.CoverImagePath,
+                Year = book.Year,
+                CopiesAvailable = book.CopiesAvailable,
+                AuthorId = book.AuthorId,
+                GenreId = book.GenreId,
 
+                Authors = (await _authorService.GetAllAsync())
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Name,
+                        Selected = a.Id == book.AuthorId
+                    }),
 
+                Genres = (await _genreService.GetAllAsync())
+                    .Select(g => new SelectListItem
+                    {
+                        Value = g.Id.ToString(),
+                        Text = g.Name,
+                        Selected = g.Id == book.GenreId
+                    })
+            };
+
+            return View("CreateAndEdit", vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, BookFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Authors = (await _authorService.GetAllAsync())
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Name
+                    });
+
+                model.Genres = (await _genreService.GetAllAsync())
+                    .Select(g => new SelectListItem
+                    {
+                        Value = g.Id.ToString(),
+                        Text = g.Name
+                    });
+
+                return View("CreateAndEdit", model);
+            }
+
+            var book = await _bookService.GetBookByIdAsync(id);
+
+            if (book == null)
+                return NotFound();
+
+            book.Title = model.Title;
+            book.Description = model.Description;
+            book.ISBN = model.ISBN;
+            book.CoverImagePath = model.CoverImagePath;
+            book.Year = model.Year;
+            book.CopiesAvailable = model.CopiesAvailable;
+            book.AuthorId = model.AuthorId;
+            book.GenreId = model.GenreId;
+
+            await _bookService.UpdateBookAsync(book);
+
+            return RedirectToAction("Index");
+        }
     }
 }

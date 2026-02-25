@@ -1,57 +1,60 @@
-﻿@model BigBookLibrary.Areas.Admin.ViewModels.Books.BookCreateViewModel
-
+﻿@model BookFormViewModel
 
 @{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2 class="mb-4">Add New Book</h2>
+<h2>@Model.Heading</h2>
 
 <form method="post">
 
-    <!-- Title -->
+    <input type="hidden" asp-for="Id" />
+
+
+    
     <div class="mb-3">
         <label class="form-label">Title</label>
         <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
 
-    <!-- Description -->
+    
     <div class="mb-3">
         <label class="form-label">Description</label>
         <textarea asp-for="Description" class="form-control" rows="4"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
-    <!-- ISBN -->
+    
     <div class="mb-3">
         <label class="form-label">ISBN</label>
         <input asp-for="ISBN" class="form-control" />
         <span asp-validation-for="ISBN" class="text-danger"></span>
     </div>
 
-    <!-- Cover Image Path -->
+    
     <div class="mb-3">
         <label class="form-label">Cover Image Path</label>
         <input asp-for="CoverImagePath" class="form-control" placeholder="/images/books/cover.jpg" />
         <span class="text-muted">Enter a URL or a local path to an image</span>
     </div>
 
-    <!-- Year -->
+    
     <div class="mb-3">
         <label class="form-label">Year of Publication</label>
         <input asp-for="Year" type="number" class="form-control" />
         <span asp-validation-for="Year" class="text-danger"></span>
     </div>
 
-    <!-- Copies Available -->
+    
     <div class="mb-3">
         <label class="form-label">Copies Available</label>
         <input asp-for="CopiesAvailable" type="number" class="form-control" />
         <span asp-validation-for="CopiesAvailable" class="text-danger"></span>
     </div>
 
-    <!-- Author -->
+    
+    
     <div class="mb-3">
         <label class="form-label">Author</label>
         <div class="d-flex gap-2">
@@ -64,7 +67,7 @@
     </div>
 
 
-    <!-- Genre -->
+    
     <div class="mb-3">
         <label class="form-label">Genre</label>
         <div class="d-flex gap-2">
@@ -76,8 +79,7 @@
         <span asp-validation-for="GenreId" class="text-danger"></span>
     </div>
 
-    <!-- Buttons -->
-    <button class="btn btn-success">Create</button>
+    <button class="btn btn-success">Save</button>
     <a href="/Admin/Books" class="btn btn-secondary">Cancel</a>
 
 </form>

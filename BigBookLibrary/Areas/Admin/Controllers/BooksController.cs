@@ -192,5 +192,38 @@ namespace BigBookLibrary.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var book = await _bookService.GetBookByIdAsync(id);
+
+            if (book == null)
+                return NotFound();
+
+            var vm = new BookDeleteViewModel
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Year = book.Year,
+                AuthorName = book.Author.Name
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(BookDeleteViewModel model)
+        {
+            var book = await _bookService.GetBookByIdAsync(model.Id);
+
+            if (book == null)
+                return NotFound();
+
+            await _bookService.DeleteBookAsync(book);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

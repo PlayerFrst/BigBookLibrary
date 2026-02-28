@@ -1,0 +1,24 @@
+﻿@model BookDeleteViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete book</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete this book?
+</div>
+
+<ul class="list-group mb-3">
+    <li class="list-group-item"><strong>Title:</strong> @Model.Title</li>
+    <li class="list-group-item"><strong>Author:</strong> @Model.AuthorName</li>
+    <li class="list-group-item"><strong>Year:</strong> @Model.Year</li>
+</ul>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <button class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

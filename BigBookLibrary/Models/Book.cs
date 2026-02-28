@@ -39,6 +39,9 @@ namespace BigBookLibrary.Models
         public Author Author { get; set; } = null!;
         public Genre Genre { get; set; } = null!;
 
+        public bool IsDeleted { get; set; } = false;
+
+
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public ICollection<Borrowing> Borrowings { get; set; } = new List<Borrowing>();
     }

@@ -8,6 +8,6 @@ namespace BigBookLibrary.Services.Interfaces
         Task<Book?> GetBookByIdAsync(int id);
         Task CreateBookAsync(Book book);
         Task UpdateBookAsync(Book book);
-        Task DeleteBookAsync(int id);
+        Task DeleteBookAsync(Book book);
     }
 }

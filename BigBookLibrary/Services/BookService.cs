@@ -17,6 +17,7 @@ namespace BigBookLibrary.Services
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
         {
             return await _context.Books
+                .Where(b => !b.IsDeleted)
                 .Include(b => b.Author)
                 .Include(b => b.Genre)
                 .ToListAsync();
@@ -25,6 +26,7 @@ namespace BigBookLibrary.Services
         public async Task<Book?> GetBookByIdAsync(int id)
         {
             return await _context.Books
+                .Where(b => !b.IsDeleted)
                 .Include(b => b.Author)
                 .Include(b => b.Genre)
                 .FirstOrDefaultAsync(b => b.Id == id);
@@ -42,15 +44,11 @@ namespace BigBookLibrary.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteBookAsync(int id)
+        public async Task DeleteBookAsync(Book book)
         {
-            var book = await _context.Books.FindAsync(id);
-
-            if (book != null)
-            {
-                _context.Books.Remove(book);
-                await _context.SaveChangesAsync();
-            }
+            book.IsDeleted = true;
+            await _context.SaveChangesAsync();
         }
+
     }
 }

@@ -11,8 +11,6 @@
         public string CoverImagePath { get; set; }
         public string AuthorName { get; set; }
         public string AuthorBiography { get; set; } 
-        
         public string GenreName { get; set; } 
-        public string GenreDescription { get; set; } 
     }
 }

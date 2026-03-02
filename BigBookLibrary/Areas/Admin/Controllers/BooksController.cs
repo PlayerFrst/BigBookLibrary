@@ -37,6 +37,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
             return View(books);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var book = await _bookService.GetBookByIdAsync(id);
@@ -44,8 +45,25 @@ namespace BigBookLibrary.Areas.Admin.Controllers
             if (book == null)
                 return NotFound();
 
-            return View(book);
+            var vm = new BookDetailsViewModel
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                ISBN = book.ISBN,
+                Year = book.Year,
+                CopiesAvailable = book.CopiesAvailable,
+                CoverImagePath = book.CoverImagePath,
+
+                AuthorName = book.Author.Name,
+                AuthorBiography = book.Author.Biography,
+
+                GenreName = book.Genre.Name
+            };
+
+            return View(vm);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Create()

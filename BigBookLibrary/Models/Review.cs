@@ -21,7 +21,6 @@ namespace BigBookLibrary.Models
         [Required]
         public DateTime CreatedOn { get; set; }
 
-        // Foreign Keys
         [Required]
         public int BookId { get; set; }
 
@@ -31,7 +30,6 @@ namespace BigBookLibrary.Models
         public IdentityUser User { get; set; } = null!;
 
 
-        // Navigation
         public Book Book { get; set; } = null!;
     }
 }

@@ -1,5 +1,4 @@
-﻿using BigBookLibrary.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using static BigBookLibrary.Common.ValidationConstants;
 
 namespace BigBookLibrary.Models
@@ -28,14 +27,14 @@ namespace BigBookLibrary.Models
         [Required]
         public int CopiesAvailable { get; set; }
 
-        // Foreign Keys
+
         [Required]
         public int AuthorId { get; set; }
 
         [Required]
         public int GenreId { get; set; }
 
-        // Navigation properties
+
         public Author Author { get; set; } = null!;
         public Genre Genre { get; set; } = null!;
 

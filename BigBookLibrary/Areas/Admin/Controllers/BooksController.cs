@@ -47,12 +47,15 @@ namespace BigBookLibrary.Areas.Admin.Controllers
             return View(book);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             var vm = new BookFormViewModel
             {
+
+                Year = 2000,
+                CopiesAvailable = 1,
+
                 Authors = (await _authorService.GetAllAsync())
                     .Select(a => new SelectListItem
                     {
@@ -66,6 +69,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
                         Value = g.Id.ToString(),
                         Text = g.Name
                     })
+
             };
 
             return View("CreateAndEdit",vm);
@@ -111,7 +115,6 @@ namespace BigBookLibrary.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)

@@ -17,7 +17,6 @@ namespace BigBookLibrary.Models
 
         public DateTime? ReturnedOn { get; set; }
 
-        // Foreign Keys
         [Required]
         public int BookId { get; set; }
 
@@ -26,7 +25,7 @@ namespace BigBookLibrary.Models
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; } = null!;
 
-        // Navigation
+
         public Book Book { get; set; } = null!;
     }
 }

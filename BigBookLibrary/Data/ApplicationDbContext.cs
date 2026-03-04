@@ -1,4 +1,5 @@
-﻿using BigBookLibrary.Models;
+﻿using BigBookLibrary.Data.Seeding.Configurations;
+using BigBookLibrary.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,8 @@ namespace BigBookLibrary.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new GenreConfiguration());
-            modelBuilder.ApplyConfiguration(new AuthorConfiguration()); 
+            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new BookConfiguration());
         }
 
     }

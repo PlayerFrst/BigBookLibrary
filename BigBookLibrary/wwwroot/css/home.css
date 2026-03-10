@@ -1,0 +1,28 @@
+﻿.login-arrow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 6px;
+    animation: arrowMove 1s infinite ease-in-out;
+}
+
+@keyframes arrowMove {
+    0% {
+        transform: translateY(0) rotate(180deg);
+    }
+
+    50% {
+        transform: translateY(-6px) rotate(180deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(180deg);
+    }
+}
+
+.login-arrow svg {
+    width: 28px;
+    height: 28px;
+    stroke: red;
+    stroke-width: 3;
+}

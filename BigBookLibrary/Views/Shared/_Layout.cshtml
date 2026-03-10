@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BigBookLibrary.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/home.css" />
 </head>
 <body>
     <header>
@@ -33,6 +34,17 @@
                         }
                     </ul>
                     <partial name="_LoginPartial" />
+                    @if (!User.Identity.IsAuthenticated
+                                        && ViewContext.RouteData.Values["controller"]?.ToString() == "Home"
+                                        && ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+                    {
+                        <div class="login-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                                <path d="M13 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>

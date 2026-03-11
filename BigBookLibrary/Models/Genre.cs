@@ -12,6 +12,8 @@ namespace BigBookLibrary.Models
         [StringLength(GenreNameMaxLength, MinimumLength = GenreNameMinLength)]
         public string Name { get; set; } = null!;
 
+        public bool IsDeleted { get; set; } = false;
+
         public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }

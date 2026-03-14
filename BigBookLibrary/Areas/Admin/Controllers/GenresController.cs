@@ -1,4 +1,5 @@
-﻿using BigBookLibrary.Areas.Admin.ViewModels.Genres;
+﻿using BigBookLibrary.Areas.Admin.ViewModels.Authors;
+using BigBookLibrary.Areas.Admin.ViewModels.Genres;
 using BigBookLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,20 +25,26 @@ namespace BigBookLibrary.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(string? returnUrl = null)
         {
-            return View();
+            ViewBag.ReturnUrl = returnUrl;
+            return View(new GenreFormModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(GenreFormModel model)
+        public async Task<IActionResult> Create(GenreFormModel model, string? returnUrl = null)
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }
 
             await genreService.CreateAsync(model);
+
+            if (!string.IsNullOrEmpty(returnUrl))
+                return Redirect(returnUrl);
+
             return RedirectToAction(nameof(Index));
         }
 

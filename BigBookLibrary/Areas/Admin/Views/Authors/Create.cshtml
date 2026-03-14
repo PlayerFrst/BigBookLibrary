@@ -1,0 +1,45 @@
+﻿@model BigBookLibrary.Areas.Admin.ViewModels.Authors.AuthorFormModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Create Author";
+}
+
+<input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Create Author</h2>
+
+    <form asp-action="Create" method="post">
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Biography" class="form-label"></label>
+            <textarea asp-for="Biography" class="form-control" rows="6"></textarea>
+            <span asp-validation-for="Biography" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" class="btn btn-secondary">
+                Back to List
+            </a>
+
+            <button type="submit" class="btn btn-success">
+                Create Author
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -2,6 +2,7 @@
 
 <input type="hidden" asp-for="Id" />
 
+
 <div class="mb-3">
     <label class="form-label">Title</label>
     <input asp-for="Title" class="form-control" />
@@ -44,7 +45,14 @@
         <select asp-for="AuthorId" class="form-select" asp-items="Model.Authors">
             <option value="">Choose author</option>
         </select>
-        <a href="/Admin/Authors/Create" class="btn btn-outline-success">+ Add</a>
+
+        <a asp-area="Admin"
+           asp-controller="Authors"
+           asp-action="Create"
+           asp-route-returnUrl="/Admin/Books/Create"
+           class="btn btn-outline-success">
+            + Add
+        </a>
     </div>
     <span asp-validation-for="AuthorId" class="text-danger"></span>
 </div>
@@ -55,7 +63,15 @@
         <select asp-for="GenreId" class="form-select" asp-items="Model.Genres">
             <option value="">Choose genre</option>
         </select>
-        <a href="/Admin/Genres/Create" class="btn btn-outline-success">+ Add</a>
+
+        <a asp-area="Admin"
+           asp-controller="Genres"
+           asp-action="Create"
+           asp-route-returnUrl="/Admin/Books/Create"
+           class="btn btn-outline-success">
+            + Add
+        </a>
     </div>
     <span asp-validation-for="GenreId" class="text-danger"></span>
 </div>
+

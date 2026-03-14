@@ -15,6 +15,8 @@ namespace BigBookLibrary.Models
         [StringLength(AuthorBiographyMaxLength)]
         public string? Biography { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BigBookLibrary.Models;
+using BigBookLibrary.ViewModels.Books;
 
 namespace BigBookLibrary.Services.Interfaces
 {
@@ -9,5 +10,8 @@ namespace BigBookLibrary.Services.Interfaces
         Task CreateBookAsync(Book book);
         Task UpdateBookAsync(Book book);
         Task DeleteBookAsync(Book book);
+
+        Task<BookDetailsViewModel?> GetBookDetailsAsync(int id);
+
     }
 }

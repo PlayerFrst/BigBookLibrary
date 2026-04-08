@@ -2,6 +2,7 @@
 using BigBookLibrary.Data;
 using BigBookLibrary.Models;
 using BigBookLibrary.Services.Interfaces;
+using BigBookLibrary.ViewModels.Books;
 using Microsoft.EntityFrameworkCore;
 
 public class GenreService:IGenreService
@@ -78,4 +79,22 @@ public class GenreService:IGenreService
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task<List<BookCardViewModel>> GetBooksByGenreAsync(int genreId)
+    {
+        return await _context.Books
+            .Include(b => b.Author)
+            .Include(b => b.Genre)
+            .Where(b => b.GenreId == genreId && !b.Genre.IsDeleted)
+            .Select(b => new BookCardViewModel
+            {
+                Id = b.Id,
+                Title = b.Title,
+                AuthorName = b.Author.Name,
+                GenreName = b.Genre.Name,
+                CoverImagePath = b.CoverImagePath ?? "/images/no-cover.png"
+            })
+            .ToListAsync();
+    }
+
 }

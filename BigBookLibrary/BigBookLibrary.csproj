@@ -33,7 +33,6 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\Authors\" />
-    <Folder Include="ViewModels\Genres\" />
     <Folder Include="wwwroot\images\books\" />
   </ItemGroup>
 

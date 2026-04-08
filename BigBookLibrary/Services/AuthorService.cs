@@ -37,7 +37,7 @@ namespace BigBookLibrary.Services
             return new AuthorFormModel
             {
                 Name = author.Name,
-                Biography = author.Biography
+                Biography = author.Biography ?? "No biography available",
             };
         }
 

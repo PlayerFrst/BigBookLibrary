@@ -1,4 +1,6 @@
-﻿using BigBookLibrary.Services.Interfaces;
+﻿using BigBookLibrary.Models;
+using BigBookLibrary.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BigBookLibrary.Controllers
@@ -15,6 +17,10 @@ namespace BigBookLibrary.Controllers
         public async Task<IActionResult> Index()
         {
             var books = await _bookService.GetAllBooksAsync();
+            foreach (var book in books)
+            {
+                book.DetailsUrl = Url.Action("Details", "Books", new { id = book.Id }) ?? "#";
+            }
             return View(books);
         }
 
@@ -31,10 +37,18 @@ namespace BigBookLibrary.Controllers
         }
 
 
-        //public async Task<IActionResult> Search(string query)
-        //{
-        //    var results = await _bookService.SearchAsync(query);
-        //    return View(results);
-        //}
+        [AllowAnonymous]
+        public async Task<IActionResult> Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return View(new List<Book>());
+            }
+
+            var results = await _bookService.SearchBooksAsync(query);
+
+            return View(results);
+        }
+
     }
 }

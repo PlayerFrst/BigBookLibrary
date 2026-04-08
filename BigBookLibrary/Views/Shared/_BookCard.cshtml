@@ -1,0 +1,25 @@
+﻿@using BigBookLibrary.ViewModels.Books
+@model BookCardViewModel
+
+<div class="col-md-3 mb-4">
+    <div class="card shadow-sm h-100">
+
+        <img src="@Model.CoverImagePath"
+             class="card-img-top img-fluid"
+             alt="@Model.Title cover"
+             style="height: 250px; object-fit: cover;" />
+
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">
+                <strong>Author:</strong> @Model.AuthorName <br />
+                <strong>Genre:</strong> @Model.GenreName
+            </p>
+
+            <a href="@Model.DetailsUrl" class="btn btn-outline-primary w-100">
+                Details
+            </a>
+
+        </div>
+    </div>
+</div>

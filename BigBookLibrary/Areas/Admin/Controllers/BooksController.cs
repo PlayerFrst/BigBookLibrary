@@ -34,6 +34,11 @@ namespace BigBookLibrary.Areas.Admin.Controllers
                     .ToList();
             }
 
+            foreach (var book in books)
+            {
+                book.DetailsUrl = Url.Action("Details", "Books", new { area = "Admin", id = book.Id }) ?? "#";
+            }
+
             return View(books);
         }
 
@@ -49,14 +54,14 @@ namespace BigBookLibrary.Areas.Admin.Controllers
             {
                 Id = book.Id,
                 Title = book.Title,
-                Description = book.Description,
+                Description = book.Description ?? "No description available",
                 ISBN = book.ISBN,
                 Year = book.Year,
                 CopiesAvailable = book.CopiesAvailable,
-                CoverImagePath = book.CoverImagePath,
+                CoverImagePath = book.CoverImagePath ?? "/images/no-cover.png",
 
                 AuthorName = book.Author.Name,
-                AuthorBiography = book.Author.Biography,
+                AuthorBiography = book.Author?.Biography ?? "No biography available",
 
                 GenreName = book.Genre.Name
             };
@@ -145,9 +150,9 @@ namespace BigBookLibrary.Areas.Admin.Controllers
             var vm = new BookFormViewModel
             {
                 Title = book.Title,
-                Description = book.Description,
+                Description = book.Description ?? "No description available",
                 ISBN = book.ISBN,
-                CoverImagePath = book.CoverImagePath,
+                CoverImagePath = book.CoverImagePath ?? "/images/no-cover.png",
                 Year = book.Year,
                 CopiesAvailable = book.CopiesAvailable,
                 AuthorId = book.AuthorId,

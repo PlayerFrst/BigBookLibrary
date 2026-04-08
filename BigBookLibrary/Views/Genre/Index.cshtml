@@ -1,0 +1,14 @@
+﻿@using BigBookLibrary.Areas.Admin.ViewModels.Genres
+@model IEnumerable<GenreViewModel>
+
+<h2 class="mb-4 text-center">Genres</h2>
+
+<div class="list-group">
+    @foreach (var genre in Model)
+    {
+        <a href="/Genre/Books/@genre.Id" class="list-group-item list-group-item-action d-flex justify-content-between">
+            <span>@genre.Name</span>
+            <span class="badge bg-primary rounded-pill">@genre.BooksCount</span>
+        </a>
+    }
+</div>

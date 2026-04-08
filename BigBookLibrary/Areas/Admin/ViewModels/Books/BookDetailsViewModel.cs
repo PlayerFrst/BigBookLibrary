@@ -3,14 +3,14 @@
     public class BookDetailsViewModel
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string ISBN { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string ISBN { get; set; } = string.Empty;
         public int Year { get; set; }
         public int CopiesAvailable { get; set; }
-        public string CoverImagePath { get; set; }
-        public string AuthorName { get; set; }
-        public string AuthorBiography { get; set; } 
-        public string GenreName { get; set; } 
+        public string CoverImagePath { get; set; } = string.Empty;
+        public string AuthorName { get; set; } = string.Empty;
+        public string AuthorBiography { get; set; } = string.Empty;
+        public string GenreName { get; set; } = string.Empty;
     }
 }

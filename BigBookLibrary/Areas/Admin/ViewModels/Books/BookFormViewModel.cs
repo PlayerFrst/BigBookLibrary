@@ -11,16 +11,16 @@ namespace BigBookLibrary.Areas.Admin.ViewModels.Books
 
         [Required]
         [StringLength(BookTitleMaxLength, MinimumLength = BookTitleMinLength)]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [StringLength(BookDescriptionMaxLength)]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         [StringLength(BookIsbnLength)]
-        public string ISBN { get; set; }
+        public string ISBN { get; set; } = string.Empty;
 
-        public string CoverImagePath { get; set; }
+        public string CoverImagePath { get; set; } = string.Empty;
 
         [Required]
         public int Year { get; set; }

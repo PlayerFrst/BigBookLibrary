@@ -1,21 +1,19 @@
 ﻿@using BigBookLibrary.ViewModels.Books
 @model IEnumerable<BookCardViewModel>
 
-@{
-    ViewData["Title"] = "All Books";
-}
-
-<h2 class="mb-4 text-center">All Books</h2>
+<h2 class="mb-4 text-center">
+    Books in this Genre (@Model.Count())
+</h2>
 
 @if (!Model.Any())
 {
     <div class="alert alert-info text-center">
-        No books available at the moment.
+        No books found in this genre.
     </div>
 }
 else
 {
-    <div class="row g-4">
+    <div class="row">
         @foreach (var book in Model)
         {
             <partial name="_BookCard" model="book" />

@@ -16,12 +16,20 @@ namespace BigBookLibrary.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooksAsync()
+        public async Task<IEnumerable<BookCardViewModel>> GetAllBooksAsync()
         {
             return await _context.Books
                 .Where(b => !b.IsDeleted)
                 .Include(b => b.Author)
                 .Include(b => b.Genre)
+                .Select(b => new BookCardViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    AuthorName = b.Author.Name,
+                    GenreName = b.Genre.Name,
+                    CoverImagePath = b.CoverImagePath ?? "/images/no-cover.png",
+                })
                 .ToListAsync();
         }
 
@@ -60,15 +68,15 @@ namespace BigBookLibrary.Services
         {
             Id = b.Id,
             Title = b.Title,
-            Description = b.Description,
-            CoverImagePath = b.CoverImagePath,
+            Description = b.Description ?? "No description available",
+            CoverImagePath = b.CoverImagePath ?? "/images/no-cover.png",
             AuthorName = b.Author.Name,
             GenreName = b.Genre.Name,
             Reviews = b.Reviews
                 .Select(r => new ReviewViewModel
                 {
                     Id = r.Id,
-                    UserName = r.User.UserName,
+                    UserName = r.User.UserName ?? "No name",
                     Rating = r.Rating,
                     Comment = r.Comment,
                     CreatedOn = r.CreatedOn
@@ -76,6 +84,20 @@ namespace BigBookLibrary.Services
                 .ToList()
         })
         .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Book>> SearchBooksAsync(string query)
+        {
+            query = query.ToLower();
+
+            return await _context.Books
+                .Include(b => b.Author)
+                .Include(b => b.Genre)
+                .Where(b =>
+                    b.Title.ToLower().Contains(query) ||
+                    b.Author.Name.ToLower().Contains(query) ||
+                    b.Genre.Name.ToLower().Contains(query))
+                .ToListAsync();
         }
     }
 }

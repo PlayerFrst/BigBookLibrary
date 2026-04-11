@@ -1,4 +1,6 @@
 ﻿using BigBookLibrary.Areas.Admin.ViewModels.Authors;
+using BigBookLibrary.Models;
+using BigBookLibrary.ViewModels.Books;
 
 namespace BigBookLibrary.Services.Interfaces
 {
@@ -9,5 +11,7 @@ namespace BigBookLibrary.Services.Interfaces
         Task CreateAsync(AuthorFormModel model);
         Task EditAsync(int id, AuthorFormModel model);
         Task SoftDeleteAsync(int id);
+        Task<IEnumerable<BookCardViewModel>> GetBooksByAuthorAsync(int authorId);
+        Task<Author?> GetAuthorEntityByIdAsync(int id);
     }
 }

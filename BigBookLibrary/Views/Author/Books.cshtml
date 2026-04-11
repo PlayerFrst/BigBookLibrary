@@ -1,0 +1,22 @@
+﻿@using BigBookLibrary.ViewModels.Books
+@model IEnumerable<BookCardViewModel>
+
+<h2 class="mb-4 text-center">
+    Books by @ViewBag.AuthorName (@Model.Count())
+</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">
+        This author has no books yet.
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var book in Model)
+        {
+            <partial name="_BookCard" model="book" />
+        }
+    </div>
+}

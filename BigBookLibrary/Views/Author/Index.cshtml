@@ -1,0 +1,19 @@
+﻿@using BigBookLibrary.Areas.Admin.ViewModels.Authors
+@model IEnumerable<AuthorViewModel>
+
+<h2 class="mb-4 text-center">Authors</h2>
+
+<div class="list-group">
+    @foreach (var author in Model)
+    {
+        <a href="/Author/Books/@author.Id"
+           class="list-group-item list-group-item-action d-flex justify-content-between">
+
+            <span>@author.Name</span>
+
+            <span class="badge bg-primary rounded-pill">
+                @author.BooksCount
+            </span>
+        </a>
+    }
+</div>

@@ -2,6 +2,7 @@
 using BigBookLibrary.Data;
 using BigBookLibrary.Models;
 using BigBookLibrary.Services.Interfaces;
+using BigBookLibrary.ViewModels.Books;
 using Microsoft.EntityFrameworkCore;
 
 namespace BigBookLibrary.Services
@@ -18,11 +19,13 @@ namespace BigBookLibrary.Services
         public async Task<IEnumerable<AuthorViewModel>> GetAllAsync()
         {
             return await _context.Authors
-                .Where(а => !а.IsDeleted)
+                .Where(a => !a.IsDeleted)
+                .Include(a => a.Books) 
                 .Select(a => new AuthorViewModel
                 {
                     Id = a.Id,
-                    Name = a.Name
+                    Name = a.Name,
+                    BooksCount = a.Books.Count(b => !b.IsDeleted)
                 })
                 .ToListAsync();
         }
@@ -31,9 +34,11 @@ namespace BigBookLibrary.Services
         {
             var author = await _context.Authors.FindAsync(id);
 
-            if (author == null)
+            if (author == null) 
+            {
                 return null;
-
+            }
+                
             return new AuthorFormModel
             {
                 Name = author.Name,
@@ -77,5 +82,36 @@ namespace BigBookLibrary.Services
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<BookCardViewModel>> GetBooksByAuthorAsync(int authorId)
+        {
+            return await _context.Books
+        .Where(b => b.AuthorId == authorId && !b.IsDeleted)
+        .Select(b => new BookCardViewModel
+        {
+            Id = b.Id,
+            Title = b.Title,
+            CoverImagePath = b.CoverImagePath,
+            AuthorName = b.Author.Name,
+            GenreName = b.Genre.Name,
+            DetailsUrl = $"/Book/Details/{b.Id}"
+        })
+        .ToListAsync();
+        }
+
+        public async Task<Author?> GetAuthorEntityByIdAsync(int id)
+        {
+            Console.WriteLine(">>> ENTERED GetAuthorEntityByIdAsync with ID: " + id);
+
+            var author = await _context.Authors
+                .Where(a => !a.IsDeleted && a.Id == id)
+                .Include(a => a.Books)
+                .FirstOrDefaultAsync();
+
+            Console.WriteLine(author == null ? ">>> AUTHOR NOT FOUND" : ">>> FOUND: " + author.Name);
+
+            return author;
+        }
+
     }
 }

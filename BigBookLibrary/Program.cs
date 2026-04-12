@@ -31,7 +31,7 @@ namespace BigBookLibrary
             builder.Services.AddScoped<IAuthorService, AuthorService>();
             builder.Services.AddScoped<IGenreService, GenreService>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
-
+            builder.Services.AddScoped<IBorrowingService, BorrowingService>();
 
             var app = builder.Build();
 

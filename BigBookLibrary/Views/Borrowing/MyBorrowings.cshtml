@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Borrowing>
+
+<h2 class="mb-4 text-center">My Active Borrowings</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">
+        You have no active borrowings.
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var b in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+
+                    <img src="@b.Book.CoverImagePath"
+                         class="card-img-top"
+                         style="height: 250px; object-fit: cover;" />
+
+                    <div class="card-body">
+                        <h5 class="card-title">@b.Book.Title</h5>
+
+                        <p class="card-text">
+                            <strong>Borrowed on:</strong> @b.BorrowedOn.ToShortDateString() <br />
+                            <strong>Due date:</strong> @b.DueDate.ToShortDateString()
+                        </p>
+
+                        <a href="/Borrowing/Return/@b.Id" class="btn btn-outline-success w-100">
+                            Return book
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

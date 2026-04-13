@@ -26,22 +26,22 @@ namespace BigBookLibrary.Controllers
             if (book == null)
                 return NotFound();
 
-            if (!await _borrowingService.IsBookAvailable(id))
+            if (await _borrowingService.UserHasOverdueBooks(userId))
             {
-                TempData["Error"] = "No copies available for this book.";
-                return RedirectToAction("Details", "Book", new { id });
+                TempData["Error"] = "You have overdue books. Please return them before borrowing new ones.";
+                return RedirectToAction("Details", "Books", new { id });
             }
 
-            var success = await _borrowingService.RentBookAsync(id, userId);
-
-            if (!success)
+            if (await _borrowingService.UserAlreadyBorrowedBook(userId, id))
             {
-                TempData["Error"] = "Unable to rent this book.";
-                return RedirectToAction("Details", "Book", new { id });
+                TempData["Error"] = "You have already borrowed this book.";
+                return RedirectToAction("Details", "Books", new { id });
             }
 
-            TempData["Success"] = "Book rented successfully!";
-            return RedirectToAction("MyBorrowings");
+            await _borrowingService.RentBookAsync(id, userId);
+
+            TempData["BorrowSuccess"] = "Book successfully borrowed!";
+            return RedirectToAction("Details", "Books", new { id });
         }
 
         public async Task<IActionResult> Return(int id)

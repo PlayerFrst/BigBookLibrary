@@ -87,5 +87,21 @@ namespace BigBookLibrary.Services
                 .ToListAsync();
         }
 
+        public async Task<bool> UserAlreadyBorrowedBook(string userId, int bookId)
+        {
+            return await _context.Borrowings
+                .AnyAsync(b => b.UserId == userId
+                            && b.BookId == bookId
+                            && b.ReturnedOn == null);
+        }
+
+        public async Task<bool> UserHasOverdueBooks(string userId)
+        {
+            return await _context.Borrowings
+                .AnyAsync(b => b.UserId == userId
+                            && b.ReturnedOn == null
+                            && b.DueDate < DateTime.UtcNow);
+        }
+
     }
 }

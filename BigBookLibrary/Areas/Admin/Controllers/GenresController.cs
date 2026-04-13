@@ -1,5 +1,4 @@
-﻿using BigBookLibrary.Areas.Admin.ViewModels.Authors;
-using BigBookLibrary.Areas.Admin.ViewModels.Genres;
+﻿using BigBookLibrary.Areas.Admin.ViewModels.Genres;
 using BigBookLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

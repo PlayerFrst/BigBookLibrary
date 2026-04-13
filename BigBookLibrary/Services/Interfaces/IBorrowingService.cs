@@ -9,5 +9,8 @@ namespace BigBookLibrary.Services.Interfaces
         Task<bool> ReturnBookAsync(int borrowingId);
         Task<IEnumerable<Borrowing>> GetActiveBorrowingsForUser(string userId);
         Task<IEnumerable<Borrowing>> GetOverdueBorrowings();
+        Task<bool> UserAlreadyBorrowedBook(string userId, int bookId);
+        Task<bool> UserHasOverdueBooks(string userId);
+
     }
 }

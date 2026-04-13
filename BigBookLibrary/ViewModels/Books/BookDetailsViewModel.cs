@@ -11,6 +11,9 @@ namespace BigBookLibrary.ViewModels.Books
         public string Description { get; set; } = string.Empty;
         public string CoverImagePath { get; set; } = string.Empty;
         public int CopiesAvailable { get; set; }
+        public bool AlreadyBorrowed { get; set; }
+        public bool HasOverdueBooks { get; set; }
+
 
         public IEnumerable<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
     }

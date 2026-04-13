@@ -20,7 +20,7 @@ namespace BigBookLibrary.Services
         {
             return await _context.Authors
                 .Where(a => !a.IsDeleted)
-                .Include(a => a.Books) 
+                .Include(a => a.Books)
                 .Select(a => new AuthorViewModel
                 {
                     Id = a.Id,
@@ -34,11 +34,11 @@ namespace BigBookLibrary.Services
         {
             var author = await _context.Authors.FindAsync(id);
 
-            if (author == null) 
+            if (author == null)
             {
                 return null;
             }
-                
+
             return new AuthorFormModel
             {
                 Name = author.Name,
@@ -101,14 +101,11 @@ namespace BigBookLibrary.Services
 
         public async Task<Author?> GetAuthorEntityByIdAsync(int id)
         {
-            Console.WriteLine(">>> ENTERED GetAuthorEntityByIdAsync with ID: " + id);
 
             var author = await _context.Authors
                 .Where(a => !a.IsDeleted && a.Id == id)
                 .Include(a => a.Books)
                 .FirstOrDefaultAsync();
-
-            Console.WriteLine(author == null ? ">>> AUTHOR NOT FOUND" : ">>> FOUND: " + author.Name);
 
             return author;
         }

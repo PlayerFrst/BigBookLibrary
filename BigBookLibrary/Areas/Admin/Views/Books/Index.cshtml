@@ -1,11 +1,8 @@
-﻿@using BigBookLibrary.ViewModels.Books
-@model IEnumerable<BookCardViewModel>
+﻿@using BigBookLibrary.Areas.Admin.ViewModels.Books
+@model BooksListViewModel
 
 @{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-}
-
-@{
     ViewData["Title"] = "Books";
 }
 
@@ -21,11 +18,36 @@
     </div>
 </form>
 
-
 <div class="row">
-    @foreach (var book in Model)
+    @foreach (var book in Model.Books)
     {
         <partial name="_BookCard" model="book" />
     }
 </div>
 
+<nav class="mt-4">
+    <ul class="pagination">
+
+        @if (Model.Pagination.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-page="@(Model.Pagination.CurrentPage - 1)">Previous</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.Pagination.CurrentPage ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+            </li>
+        }
+
+        @if (Model.Pagination.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-page="@(Model.Pagination.CurrentPage + 1)">Next</a>
+            </li>
+        }
+
+    </ul>
+</nav>

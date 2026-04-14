@@ -1,4 +1,5 @@
 ﻿using BigBookLibrary.Areas.Admin.ViewModels.Books;
+using BigBookLibrary.Areas.Admin.ViewModels.Shared;
 using BigBookLibrary.Models;
 using BigBookLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -23,24 +24,44 @@ namespace BigBookLibrary.Areas.Admin.Controllers
             _genreService = genreService;
         }
 
-        public async Task<IActionResult> Index(string? search)
+        public async Task<IActionResult> Index(int page = 1, string? search = null)
         {
-            var books = await _bookService.GetAllBooksAsync();
+            const int pageSize = 8;
+
+            var booksQuery = (await _bookService.GetAllBooksAsync()).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(search))
             {
-                books = books
-                    .Where(b => b.Title.Contains(search, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+                booksQuery = booksQuery
+                    .Where(b => b.Title.Contains(search, StringComparison.OrdinalIgnoreCase));
             }
+
+            var totalBooks = booksQuery.Count();
+
+            var books = booksQuery
+                .OrderByDescending(b => b.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
             foreach (var book in books)
             {
                 book.DetailsUrl = Url.Action("Details", "Books", new { area = "Admin", id = book.Id }) ?? "#";
             }
 
-            return View(books);
+            var viewModel = new BooksListViewModel
+            {
+                Books = books,
+                Pagination = new PaginationViewModel
+                {
+                    CurrentPage = page,
+                    TotalPages = (int)Math.Ceiling(totalBooks / (double)pageSize)
+                }
+            };
+
+            return View(viewModel);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)

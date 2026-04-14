@@ -1,5 +1,5 @@
-﻿@using BigBookLibrary.ViewModels.Books
-@model IEnumerable<BookCardViewModel>
+﻿@using BigBookLibrary.Areas.Admin.ViewModels.Books
+@model BooksListViewModel
 
 @{
     ViewData["Title"] = "All Books";
@@ -7,7 +7,7 @@
 
 <h2 class="mb-4 text-center">All Books</h2>
 
-@if (!Model.Any())
+@if (!Model.Books.Any())
 {
     <div class="alert alert-info text-center">
         No books available at the moment.
@@ -16,9 +16,48 @@
 else
 {
     <div class="row g-4">
-        @foreach (var book in Model)
+        @foreach (var book in Model.Books)
         {
             <partial name="_BookCard" model="book" />
         }
     </div>
+
+    <nav class="mt-4 d-flex justify-content-center">
+        <ul class="pagination">
+
+            @if (Model.Pagination.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@(Model.Pagination.CurrentPage - 1)">
+                        Previous
+                    </a>
+                </li>
+            }
+
+            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Pagination.CurrentPage ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@i">
+                        @i
+                    </a>
+                </li>
+            }
+
+            @if (Model.Pagination.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@(Model.Pagination.CurrentPage + 1)">
+                        Next
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </nav>
 }

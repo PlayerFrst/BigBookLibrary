@@ -99,6 +99,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BookFormViewModel model)
         {
             if (!ModelState.IsValid)
@@ -138,6 +139,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -179,6 +181,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, BookFormViewModel model)
         {
             if (!ModelState.IsValid)
@@ -218,6 +221,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)

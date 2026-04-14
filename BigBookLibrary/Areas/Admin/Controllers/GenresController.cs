@@ -31,6 +31,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GenreFormModel model, string? returnUrl = null)
         {
             if (!ModelState.IsValid)
@@ -61,6 +62,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, GenreFormModel model)
         {
             if (!ModelState.IsValid)

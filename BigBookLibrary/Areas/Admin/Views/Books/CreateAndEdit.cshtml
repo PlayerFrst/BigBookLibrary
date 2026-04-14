@@ -1,13 +1,11 @@
-﻿@model BookFormViewModel
-
-@{
+﻿@{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>@Model.Heading</h2>
 
 <form method="post">
-
+    @Html.AntiForgeryToken()
     <partial name="_BookFormFields" model="Model" />
 
     <button class="btn btn-success">Save</button>

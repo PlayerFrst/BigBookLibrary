@@ -33,6 +33,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AuthorFormModel model, string? returnUrl = null)
         {
             if (!ModelState.IsValid)
@@ -49,7 +50,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var model = await _authorService.GetByIdAsync(id);
@@ -64,6 +65,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
 
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, AuthorFormModel model)
         {
             if (!ModelState.IsValid)

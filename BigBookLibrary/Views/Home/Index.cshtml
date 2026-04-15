@@ -1,4 +1,7 @@
-﻿@{
+﻿@using BigBookLibrary.ViewModels.Home
+@model HomeViewModel
+
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -51,6 +54,32 @@
         text-align: center;
     }
 
+    /* POPULAR BOOKS */
+    .popular-books .book-card {
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform .2s ease;
+    }
+
+        .popular-books .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .popular-books img {
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .popular-books .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .popular-books .card-text {
+        font-size: 0.9rem;
+    }
+
+
     /* BOOK CARDS */
     .book-card {
         border: none;
@@ -101,55 +130,29 @@
 </div>
 
 <!-- POPULAR BOOKS -->
-<div class="container mt-5">
-    <h2 class="section-title">Popular Books</h2>
+<div class="container mt-5 popular-books">
+    <div class="text-center mb-4">
+        <h2 class="section-title">Popular Books</h2>
+        <p class="text-muted">The most borrowed books right now</p>
+    </div>
 
     <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card book-card">
-                <img src="https://via.placeholder.com/300x400" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">Book 1</h5>
-                    <p class="card-text text-muted">Author 1</p>
-                    <a href="#" class="btn btn-primary btn-sm">Details</a>
+        @foreach (var book in Model.PopularBooks)
+        {
+            <div class="col-6 col-md-3">
+                <div class="card book-card shadow-sm">
+                    <img src="@book.CoverImagePath" class="card-img-top" alt="@book.Title" />
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Title</h5>
+                        <p class="card-text text-muted">@book.AuthorName</p>
+                        <a href="@book.DetailsUrl" class="btn btn-primary btn-sm w-100">Details</a>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card book-card">
-                <img src="https://via.placeholder.com/300x400" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">Book 2</h5>
-                    <p class="card-text text-muted">Author 2</p>
-                    <a href="#" class="btn btn-primary btn-sm">Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card book-card">
-                <img src="https://via.placeholder.com/300x400" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">Book 3</h5>
-                    <p class="card-text text-muted">Author 3</p>
-                    <a href="#" class="btn btn-primary btn-sm">Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card book-card">
-                <img src="https://via.placeholder.com/300x400" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">Book 4</h5>
-                    <p class="card-text text-muted">Author 4</p>
-                    <a href="#" class="btn btn-primary btn-sm">Details</a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
+
 
 <!-- GENRES -->
 <div class="container mt-5">

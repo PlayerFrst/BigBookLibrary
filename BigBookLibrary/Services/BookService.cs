@@ -100,5 +100,29 @@ namespace BigBookLibrary.Services
                     b.Genre.Name.ToLower().Contains(query))
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<BookCardViewModel>> GetPopularBooksAsync(int count = 4)
+        {
+            var popularBookIds = await _context.Borrowings
+                .GroupBy(b => b.BookId)
+                .OrderByDescending(g => g.Count())
+                .Take(count)
+                .Select(g => g.Key)
+                .ToListAsync();
+
+            var books = await _context.Books
+                .Where(b => popularBookIds.Contains(b.Id))
+                .Select(b => new BookCardViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    AuthorName = b.Author.Name,
+                    CoverImagePath = b.CoverImagePath ?? "/images/no-cover.png",
+                })
+                .ToListAsync();
+
+            return books;
+        }
+
     }
 }

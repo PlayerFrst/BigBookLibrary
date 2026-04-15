@@ -12,6 +12,6 @@ namespace BigBookLibrary.Services.Interfaces
         Task DeleteBookAsync(Book book);
         Task<BookDetailsViewModel?> GetBookDetailsAsync(int id);
         Task<List<Book>> SearchBooksAsync(string query);
-
+        Task<IEnumerable<BookCardViewModel>> GetPopularBooksAsync(int count = 4);
     }
 }

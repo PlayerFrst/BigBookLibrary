@@ -1,4 +1,6 @@
-﻿using BigBookLibrary.Extensions;
+﻿using BigBookLibrary.ViewModels.Books;
+using BigBookLibrary.Extensions;
+using BigBookLibrary.Services;
 using BigBookLibrary.Services.Interfaces;
 using BigBookLibrary.ViewModels.Reviews;
 using Microsoft.AspNetCore.Authorization;
@@ -10,10 +12,12 @@ namespace BigBookLibrary.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewService _reviewService;
+        private readonly IBookService _bookService;
 
-        public ReviewController(IReviewService reviewService)
+        public ReviewController(IReviewService reviewService, IBookService bookService)
         {
             _reviewService = reviewService;
+            _bookService = bookService;
         }
 
         [HttpPost]
@@ -21,9 +25,24 @@ namespace BigBookLibrary.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ReviewError"] = "Please fill in the review correctly.";
-                return RedirectToAction("Details", "Books", new { id = bookId });
+                var book = await _bookService.GetBookDetailsAsync(bookId);
+
+                var viewModel = new BookDetailsViewModel
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    AuthorName = book.AuthorName,
+                    GenreName = book.GenreName,
+                    Description = book.Description,
+                    CoverImagePath = book.CoverImagePath,
+                    CopiesAvailable = book.CopiesAvailable,
+                    Reviews = await _reviewService.GetReviewsForBookAsync(bookId),
+                    ReviewForm = model
+                };
+
+                return View("~/Views/Books/Details.cshtml", viewModel);
             }
+
 
             var userId = User.GetId();
 

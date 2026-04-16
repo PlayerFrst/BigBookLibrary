@@ -64,24 +64,31 @@
     @if (User.Identity.IsAuthenticated)
     {
         <form method="post" asp-controller="Review" asp-action="Add" asp-route-bookId="@Model.Id">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
             <div class="mb-3">
-                <label class="form-label">Rating</label>
-                <select name="Rating" class="form-select">
+                <label asp-for="ReviewForm.Rating" class="form-label"></label>
+                <select asp-for="ReviewForm.Rating" class="form-select">
+                    <option value="">Select rating</option>
                     <option value="5">5 - Excellent</option>
                     <option value="4">4 - Very Good</option>
                     <option value="3">3 - Good</option>
                     <option value="2">2 - Poor</option>
                     <option value="1">1 - Bad</option>
                 </select>
+                <span asp-validation-for="ReviewForm.Rating" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Comment</label>
-                <textarea name="Comment" class="form-control" rows="3"></textarea>
+                <label asp-for="ReviewForm.Comment" class="form-label"></label>
+                <textarea asp-for="ReviewForm.Comment" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="ReviewForm.Comment" class="text-danger"></span>
             </div>
 
             <button class="btn btn-success">Submit Review</button>
         </form>
+
     }
 
     @if (Model.Reviews.Any())

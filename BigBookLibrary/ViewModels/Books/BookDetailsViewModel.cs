@@ -14,6 +14,7 @@ namespace BigBookLibrary.ViewModels.Books
         public bool AlreadyBorrowed { get; set; }
         public bool HasOverdueBooks { get; set; }
 
+        public ReviewFormModel ReviewForm { get; set; } = new ReviewFormModel();
 
         public IEnumerable<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
     }

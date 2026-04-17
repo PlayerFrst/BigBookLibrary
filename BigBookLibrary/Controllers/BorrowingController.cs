@@ -38,11 +38,18 @@ namespace BigBookLibrary.Controllers
                 return RedirectToAction("Details", "Books", new { id });
             }
 
-            await _borrowingService.RentBookAsync(id, userId);
+            var success = await _borrowingService.RentBookAsync(id, userId);
+
+            if (!success)
+            {
+                TempData["Error"] = "This book is not available right now.";
+                return RedirectToAction("Details", "Books", new { id });
+            }
 
             TempData["BorrowSuccess"] = "Book successfully borrowed!";
             return RedirectToAction("Details", "Books", new { id });
         }
+
 
         public async Task<IActionResult> Return(int id)
         {

@@ -19,7 +19,7 @@
             <h5 class="text-muted">Author: @Model.AuthorName</h5>
             <p><strong>Genre:</strong> @Model.GenreName</p>
 
-            <!-- NEW: Available copies -->
+            <!-- Available copies -->
             <p class="mt-2">
                 <strong>Available copies:</strong>
                 <span class="badge bg-@(Model.CopiesAvailable > 0 ? "success" : "danger")">
@@ -48,10 +48,19 @@
                 }
             }
 
+            <!-- SUCCESS MESSAGE -->
             @if (TempData["BorrowSuccess"] != null)
             {
                 <div class="alert alert-success mt-3">
                     @TempData["BorrowSuccess"]
+                </div>
+            }
+
+            <!-- ERROR MESSAGE -->
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger mt-3">
+                    @TempData["Error"]
                 </div>
             }
         </div>
@@ -88,7 +97,6 @@
 
             <button class="btn btn-success">Submit Review</button>
         </form>
-
     }
 
     @if (Model.Reviews.Any())

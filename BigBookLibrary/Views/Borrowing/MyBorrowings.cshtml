@@ -13,20 +13,36 @@ else
     <div class="row">
         @foreach (var b in Model)
         {
+            bool isOverdue = b.DueDate < DateTime.UtcNow && b.ReturnedOn == null;
+
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm h-100">
+                <div class="card shadow-sm h-100 @(isOverdue ? "border-danger" : "")">
 
                     <img src="@b.Book.CoverImagePath"
                          class="card-img-top"
                          style="height: 250px; object-fit: cover;" />
 
                     <div class="card-body">
-                        <h5 class="card-title">@b.Book.Title</h5>
+                        <h5 class="card-title">
+                            @b.Book.Title
+
+                            @if (isOverdue)
+                            {
+                                <span class="badge bg-danger ms-2">Overdue</span>
+                            }
+                        </h5>
 
                         <p class="card-text">
                             <strong>Borrowed on:</strong> @b.BorrowedOn.ToShortDateString() <br />
                             <strong>Due date:</strong> @b.DueDate.ToShortDateString()
                         </p>
+
+                        @if (isOverdue)
+                        {
+                            <p class="text-danger fw-bold">
+                                This book is overdue! Please return it as soon as possible.
+                            </p>
+                        }
 
                         <a href="/Borrowing/Return/@b.Id" class="btn btn-outline-success w-100">
                             Return book

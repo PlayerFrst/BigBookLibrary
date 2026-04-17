@@ -47,6 +47,7 @@ namespace BigBookLibrary
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 RoleSeeder.SeedRolesAsync(roleManager).Wait();
                 RoleSeeder.SeedAdminAsync(userManager).Wait();
+                UserSeeder.SeedUsersAsync(userManager).Wait();
             }
 
             // Configure the HTTP request pipeline.

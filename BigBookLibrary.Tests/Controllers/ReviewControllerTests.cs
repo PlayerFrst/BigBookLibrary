@@ -1,4 +1,5 @@
 ﻿using BigBookLibrary.Controllers;
+using BigBookLibrary.Services;
 using BigBookLibrary.Services.Interfaces;
 using BigBookLibrary.ViewModels.Reviews;
 using Microsoft.AspNetCore.Http;
@@ -12,12 +13,13 @@ namespace BigBookLibrary.Tests.Controllers
     public class ReviewControllerTests
     {
         private Mock<IReviewService> _reviewService;
-
+        private Mock<IBookService> _bookService;
         private ReviewController GetController(string userId = "user1", bool isAdmin = false)
         {
             _reviewService = new Mock<IReviewService>();
+            _bookService = new Mock<IBookService>();
 
-            var controller = new ReviewController(_reviewService.Object);
+            var controller = new ReviewController(_reviewService.Object, _bookService.Object);
 
             // Mock User
             var claims = new List<Claim>

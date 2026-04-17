@@ -26,7 +26,7 @@ namespace BigBookLibrary.Data
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new BorrowingConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
         }
-
     }
 }

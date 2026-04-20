@@ -21,37 +21,34 @@ namespace BigBookLibrary.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(int bookId, ReviewFormModel model)
+        public async Task<IActionResult> Add(int bookId, BookDetailsViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 var book = await _bookService.GetBookDetailsAsync(bookId);
 
-                var viewModel = new BookDetailsViewModel
-                {
-                    Id = book.Id,
-                    Title = book.Title,
-                    AuthorName = book.AuthorName,
-                    GenreName = book.GenreName,
-                    Description = book.Description,
-                    CoverImagePath = book.CoverImagePath,
-                    CopiesAvailable = book.CopiesAvailable,
-                    Reviews = await _reviewService.GetReviewsForBookAsync(bookId),
-                    ReviewForm = model
-                };
+                model.Id = book.Id;
+                model.Title = book.Title;
+                model.AuthorName = book.AuthorName;
+                model.GenreName = book.GenreName;
+                model.Description = book.Description;
+                model.CoverImagePath = book.CoverImagePath;
+                model.CopiesAvailable = book.CopiesAvailable;
 
-                return View("~/Views/Books/Details.cshtml", viewModel);
+                model.Reviews = await _reviewService.GetReviewsForBookAsync(bookId);
+
+                return View("~/Views/Books/Details.cshtml", model);
             }
-
 
             var userId = User.GetId();
 
-            await _reviewService.AddReviewAsync(bookId, userId, model);
+            await _reviewService.AddReviewAsync(bookId, userId, model.ReviewForm);
 
             TempData["ReviewSuccess"] = "Your review has been submitted successfully.";
 
             return RedirectToAction("Details", "Books", new { id = bookId });
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id, int bookId)

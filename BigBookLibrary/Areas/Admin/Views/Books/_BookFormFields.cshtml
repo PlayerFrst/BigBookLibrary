@@ -1,80 +1,77 @@
 ﻿@model BookFormViewModel
 
-<form method="post">
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
-    <input type="hidden" asp-for="Id" />
+<input type="hidden" asp-for="Id" />
 
-    <div class="mb-3">
-        <label class="form-label">Title</label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+<div class="mb-3">
+    <label class="form-label">Title</label>
+    <input asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">ISBN</label>
+    <input asp-for="ISBN" class="form-control" />
+    <span asp-validation-for="ISBN" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Cover Image Path</label>
+    <input asp-for="CoverImagePath" class="form-control" placeholder="/images/books/cover.jpg" />
+    <span class="text-muted">Enter a URL or a local path to an image</span>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Year of Publication</label>
+    <input asp-for="Year" type="number" class="form-control" />
+    <span asp-validation-for="Year" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Copies Available</label>
+    <input asp-for="CopiesAvailable" type="number" class="form-control" />
+    <span asp-validation-for="CopiesAvailable" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Author</label>
+    <div class="d-flex gap-2">
+        <select asp-for="AuthorId" class="form-select" asp-items="Model.Authors">
+            <option value="">Choose author</option>
+        </select>
+
+        <a asp-area="Admin"
+           asp-controller="Authors"
+           asp-action="Create"
+           asp-route-returnUrl="/Admin/Books/Create"
+           class="btn btn-outline-success">
+            + Add
+        </a>
     </div>
+    <span asp-validation-for="AuthorId" class="text-danger"></span>
+</div>
 
-    <div class="mb-3">
-        <label class="form-label">Description</label>
-        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+<div class="mb-3">
+    <label class="form-label">Genre</label>
+    <div class="d-flex gap-2">
+        <select asp-for="GenreId" class="form-select" asp-items="Model.Genres">
+            <option value="">Choose genre</option>
+        </select>
+
+        <a asp-area="Admin"
+           asp-controller="Genres"
+           asp-action="Create"
+           asp-route-returnUrl="/Admin/Books/Create"
+           class="btn btn-outline-success">
+            + Add
+        </a>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">ISBN</label>
-        <input asp-for="ISBN" class="form-control" />
-        <span asp-validation-for="ISBN" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Cover Image Path</label>
-        <input asp-for="CoverImagePath" class="form-control" placeholder="/images/books/cover.jpg" />
-        <span class="text-muted">Enter a URL or a local path to an image</span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Year of Publication</label>
-        <input asp-for="Year" type="number" class="form-control" />
-        <span asp-validation-for="Year" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Copies Available</label>
-        <input asp-for="CopiesAvailable" type="number" class="form-control" />
-        <span asp-validation-for="CopiesAvailable" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Author</label>
-        <div class="d-flex gap-2">
-            <select asp-for="AuthorId" class="form-select" asp-items="Model.Authors">
-                <option value="">Choose author</option>
-            </select>
-
-            <a asp-area="Admin"
-               asp-controller="Authors"
-               asp-action="Create"
-               asp-route-returnUrl="/Admin/Books/Create"
-               class="btn btn-outline-success">
-                + Add
-            </a>
-        </div>
-        <span asp-validation-for="AuthorId" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Genre</label>
-        <div class="d-flex gap-2">
-            <select asp-for="GenreId" class="form-select" asp-items="Model.Genres">
-                <option value="">Choose genre</option>
-            </select>
-
-            <a asp-area="Admin"
-               asp-controller="Genres"
-               asp-action="Create"
-               asp-route-returnUrl="/Admin/Books/Create"
-               class="btn btn-outline-success">
-                + Add
-            </a>
-        </div>
-        <span asp-validation-for="GenreId" class="text-danger"></span>
-    </div>
-
-</form>
+    <span asp-validation-for="GenreId" class="text-danger"></span>
+</div>

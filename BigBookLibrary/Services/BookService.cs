@@ -77,6 +77,7 @@ namespace BigBookLibrary.Services
                 .Select(r => new ReviewViewModel
                 {
                     Id = r.Id,
+                    UserId = r.UserId,
                     UserName = r.User.UserName ?? "No name",
                     Rating = r.Rating,
                     Comment = r.Comment,

@@ -1,14 +1,26 @@
-﻿@{
+﻿@model BookFormViewModel
+
+@{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    bool isEdit = Model.Id > 0;
+    string action = isEdit ? "Edit" : "Create";
 }
 
 <h2>@Model.Heading</h2>
 
-<form method="post">
+<form method="post" asp-area="Admin" asp-controller="Books" asp-action="@action">
     @Html.AntiForgeryToken()
+
     <partial name="_BookFormFields" model="Model" />
 
-    <button class="btn btn-success">Save</button>
-    <a href="/Admin/Books" class="btn btn-secondary">Cancel</a>
-
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-area="Admin" asp-controller="Books" asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

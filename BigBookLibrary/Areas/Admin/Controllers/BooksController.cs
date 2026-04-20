@@ -172,6 +172,7 @@ namespace BigBookLibrary.Areas.Admin.Controllers
 
             var vm = new BookFormViewModel
             {
+                Id = book.Id,
                 Title = book.Title,
                 Description = book.Description ?? "No description available",
                 ISBN = book.ISBN,

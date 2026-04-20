@@ -3,6 +3,21 @@
 BigBookLibrary is a virtual library system that allows users to browse books, borrow them, track return dates, and write reviews.
 The application includes a full administrative panel for managing books, authors, and genres, as well as user authentication and role-based access.
 
+## Seeded Accounts
+
+The application automatically seeds:
+
+1 administrator account (created in RoleSeeder.cs)
+2 regular user accounts (created in UserSeeder.cs)
+
+These accounts are generated on first run.
+Their email addresses and passwords can be found directly in the corresponding seeder files:
+
+Data/Seeding/RoleSeeder.cs – administrator credentials
+Data/Seeding/UserSeeder.cs – regular user credentials
+
+You can also register additional accounts through the UI.
+
 ## Features
 
 - Browse all available books  

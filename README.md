@@ -48,7 +48,16 @@ The project follows clean architecture practices and applies the **SOLID princip
 - **C#**  
 - **LINQ**  
 - **Visual Studio**  
-- **SQL Server Management Studio (SSMS)**  
+- **SQL Server Management Studio (SSMS)**
+
+## Entity Models
+
+The project uses a total of **6 entity models**, which meets the assignment requirement.  
+Five of them are created by me, and the sixth one comes from ASP.NET Core Identity (`AspNetUsers`), which is used for authentication.
+
+Here is a screenshot of the database diagram showing all 6 tables:
+
+![Database Diagram](images/database-diagram.png)
 
 ## Setup Instructions
 

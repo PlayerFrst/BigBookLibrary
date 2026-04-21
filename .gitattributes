@@ -61,3 +61,5 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+# Treat Bootstrap SCSS as vendor (exclude from language stats)
+wwwroot/bootstrap/**/*.scss linguist-vendored

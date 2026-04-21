@@ -5,6 +5,15 @@
     Books by @ViewBag.AuthorName (@Model.Count())
 </h2>
 
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h5 class="card-title text-center mb-3">Biography</h5>
+        <p class="card-text text-center">
+            @Model.First().AuthorBiography
+        </p>
+    </div>
+</div>
+
 @if (!Model.Any())
 {
     <div class="alert alert-info text-center">

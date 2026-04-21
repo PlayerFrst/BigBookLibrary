@@ -72,6 +72,8 @@ namespace BigBookLibrary.Services
             CoverImagePath = b.CoverImagePath ?? "/images/no-cover.png",
             AuthorName = b.Author.Name,
             GenreName = b.Genre.Name,
+            ISBN = b.ISBN,
+            AuthorBiography = b.Author.Biography ?? "No biography available",
             CopiesAvailable = b.CopiesAvailable,
             Reviews = b.Reviews
                 .Select(r => new ReviewViewModel

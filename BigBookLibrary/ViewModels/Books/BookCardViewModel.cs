@@ -8,6 +8,8 @@
         public string GenreName { get; set; } = null!;
         public string CoverImagePath { get; set; } = null!;
         public string DetailsUrl { get; set; } = null!;
+        public string AuthorBiography { get; set; } = null!;
+
     }
 
 }

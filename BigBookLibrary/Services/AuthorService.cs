@@ -93,6 +93,7 @@ namespace BigBookLibrary.Services
             Title = b.Title,
             CoverImagePath = b.CoverImagePath,
             AuthorName = b.Author.Name,
+            AuthorBiography = b.Author.Biography,
             GenreName = b.Genre.Name,
             DetailsUrl = $"/Book/Details/{b.Id}"
         })

@@ -15,19 +15,18 @@
 }
 else
 {
-
     <!-- SEARCH BAR -->
     <div class="d-flex justify-content-center mb-4">
-        <form method="get" action="/Books/Search" class="w-75">
+        <form method="get" action="/Books/Search" class="search-bar w-100 d-flex">
             <div class="input-group">
-                <input type="text" name="query" class="form-control form-control-lg"
+                <input type="text" name="query" class="form-control"
                        placeholder="Search by title, author, or genre..." />
-                <button class="btn btn-primary btn-lg">Search</button>
+                <button class="btn btn-primary">Search</button>
             </div>
         </form>
     </div>
 
-
+    <!-- BOOK GRID -->
     <div class="row g-4">
         @foreach (var book in Model.Books)
         {
@@ -35,6 +34,7 @@ else
         }
     </div>
 
+    <!-- PAGINATION -->
     <nav class="mt-4 d-flex justify-content-center">
         <ul class="pagination">
 

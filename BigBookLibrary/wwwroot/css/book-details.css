@@ -1,0 +1,75 @@
+﻿/* --- Book Details Page Styling --- */
+
+.book-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.book-meta {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.book-info-card {
+    border-left: 4px solid #0d6efd;
+    padding-left: 15px;
+}
+
+.book-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* Review section */
+.review-card {
+    border-left: 4px solid #ffc107;
+}
+
+.review-rating {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffb300;
+}
+
+.review-author {
+    font-weight: 600;
+}
+
+.review-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* Review form */
+.review-form-card {
+    border-left: 4px solid #28a745;
+}
+
+    .review-form-card h5 {
+        font-weight: 600;
+    }
+
+/* Buttons */
+.btn-primary,
+.btn-success {
+    font-size: 1.05rem;
+    padding: 8px 18px;
+}
+
+.book-cover-wrapper {
+    border: 3px solid #e0e0e0; 
+    border-radius: 10px; 
+    padding: 10px; 
+    background-color: #ffffff; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.book-cover-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; 
+    border-radius: 6px;
+}
+

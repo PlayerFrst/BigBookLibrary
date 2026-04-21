@@ -1,0 +1,36 @@
+﻿/* --- Book Card Styling --- */
+
+.book-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+/* Book cover */
+.book-card-cover {
+    width: 100%;
+    height: 260px;
+    object-fit: contain; 
+    background-color: #f8f9fa; 
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Title */
+.book-card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    min-height: 48px; 
+}
+
+/* Author & Genre */
+.book-card-meta {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.3;
+}

@@ -13,8 +13,8 @@ The application automatically seeds:
 These accounts are generated on first run.
 Their email addresses and passwords can be found directly in the corresponding seeder files:
 
-Data/Seeding/RoleSeeder.cs – administrator credentials
-Data/Seeding/UserSeeder.cs – regular user credentials
+- Data/Seeding/RoleSeeder.cs – administrator credentials  
+- Data/Seeding/UserSeeder.cs – regular user credentials
 
 You can also register additional accounts through the UI.
 
